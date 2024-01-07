@@ -25,23 +25,30 @@ def main():  # Main function.
     #initilise strip
     pixels = Neopixel(led_strip_len, 0, pico_gpio, "GRB")
     
+    #Initiage main colors and brighness
     brightness_adjustment = 0
     red=[255,0,0]
     yellow=[150,25,0]
     bright = 255
     medium = 100
-    brightness_adjustment = 0
     rotate_adjustment = 0
-    
-    pixels.set_pixel_line_gradient(0, middle, yellow,red)
-    pixels.set_pixel_line_gradient(middle, middle, yellow,red)
-    
 
+    #Initilize flame line    
+    pixels.brightness(medium-brightness_adjustment)
+    pixels.set_pixel_line_gradient(0, middle, yellow,red)
+    pixels.set_pixel_line_gradient(middle, led_strip_len-1, red,yellow)
+    
+    #Main flicker loop.  This creates a flicker by (1- adjusting the brightness, and 2- rotating the two colors)
     while True:
+        #Pick a random brightness adjustment and a random time to stay on the current brightness
         brightness_adjustment=random.randint(0,20)
         sleep_time=random.random()/3
+        
+        #Prepare the strip
+        #Set Brighness
         pixels.brightness(medium-brightness_adjustment)
-        pixels.set_pixel_line_gradient(0, 59, yellow,red)
+        pixels.set_pixel_line_gradient(0, middle, yellow,red)
+        pixels.set_pixel_line_gradient(middle, led_strip_len-1, red,yellow)
         pixels.rotate_right(rotate_adjustment)
         rotate_adjustment = rotate_adjustment + 1
         if rotate_adjustment > led_strip_len:
