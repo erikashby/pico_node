@@ -9,7 +9,8 @@
 # - neopixel.py to be in the same folder since it provides the interface to the RGB strip
 # - time for sleep actions
 
-import time
+import time,sys
+sys.path.append('/actions')
 from neopixel import Neopixel
 
 def main():  # Main function.
