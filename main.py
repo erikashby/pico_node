@@ -4,6 +4,8 @@ import node as node, machine, uasyncio as asyncio
 
 #Define the possible actions that are supported by the pico
 
+#
+
 try:
     node.connect()
 except KeyboardInterrupt:
