@@ -20,7 +20,7 @@ from neopixel import Neopixel
 
 
 
-async def main():  # Main function.
+def main():  # Main function.
     #define global configuration
     # Default number of led lights on strip
     led_strip_len = 60
@@ -39,7 +39,7 @@ async def main():  # Main function.
     medium = 100
     
     
-    async def show_line(bright_level,color1,color2,rotate):
+    def show_line(bright_level,color1,color2,rotate):
     
         pixels.brightness(bright_level)
         
