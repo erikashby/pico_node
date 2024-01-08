@@ -17,10 +17,7 @@ from neopixel import Neopixel
 
 
 
-
-
-
-async def main():  # Main function.
+async def main_fire():  # Main function.
     #define global configuration
     # Default number of led lights on strip
     led_strip_len = 60
@@ -71,20 +68,20 @@ async def main():  # Main function.
         if rotate_adjustment > led_strip_len:
             rotate_adjustment=0
             
-        asyncio.sleep(sleep_time)
+        await asyncio.sleep(sleep_time)
         
         #burst flicker
         if int(random.randint(0,20)) == 1:
             show_line(bright-brightness_adjustment-25,yellow,red,rotate_adjustment)
-            asyncio.sleep(0.02)
+            await asyncio.sleep(0.02)
             show_line(bright-brightness_adjustment,yellow,red,rotate_adjustment)
-            asyncio.sleep(.01)
+            await asyncio.sleep(.01)
             show_line(bright-brightness_adjustment-25,yellow,red,rotate_adjustment)
-            asyncio.sleep(.01)
+            await asyncio.sleep(.01)
             show_line(bright-brightness_adjustment-70,yellow,red,rotate_adjustment)
-            asyncio.sleep(sleep_time)
+            await asyncio.sleep(sleep_time)
         
         #pause for some random time
 
-print("starting")   
-main()
+print("starting fire")   
+main_fire()

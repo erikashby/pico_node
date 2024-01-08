@@ -15,12 +15,12 @@ except KeyboardInterrupt:
 #ledstrip_fire_run = __import__('ledstrip_fire.py', globals(), locals(), ['main'], 0)
 #ledstrip_fire.main()
 async def main():
-    asyncio.create_task(ledstrip_fire.main())
+    asyncio.create_task(ledstrip_fire.main_fire())
 
     print("done")
 
     while True:
-        await asyncio.sleep(1)
+        asyncio.sleep(1)
         print("waiting")
 
 asyncio.run(main())
