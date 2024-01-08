@@ -17,7 +17,7 @@ from neopixel import Neopixel
 
 
 
-async def main_fire():  # Main function.
+async def main():  # Main function.
     #define global configuration
     # Default number of led lights on strip
     led_strip_len = 60
@@ -84,4 +84,4 @@ async def main_fire():  # Main function.
         #pause for some random time
 
 print("starting fire")   
-main_fire()
+main()
