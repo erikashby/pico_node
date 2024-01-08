@@ -1,5 +1,5 @@
 #main module
-import node as node, machine, uasyncio as asyncio, ledstrip_fire
+import node as node, machine, uasyncio as asyncio, ledstrip_fire, utime
 #This module will run automatically when the pico starts up
 
 #Define the possible actions that are supported by the pico
@@ -13,14 +13,14 @@ except KeyboardInterrupt:
 
 #create a fire
 #ledstrip_fire_run = __import__('ledstrip_fire.py', globals(), locals(), ['main'], 0)
-ledstrip_fire_run.main()
+#ledstrip_fire.main()
+async def main():
+    asyncio.create_task(ledstrip_fire.main())
 
-#asyncio.create_task(ledstrip_fire.main())
+    print("done")
 
-print("done")
+    while True:
+        await asyncio.sleep(1)
+        print("waiting")
 
-#while True:
-#    asyncio.sleep(1)
-#    print("waiting")
-
-
+asyncio.run(main())

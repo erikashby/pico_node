@@ -20,7 +20,7 @@ from neopixel import Neopixel
 
 
 
-def main():  # Main function.
+async def main():  # Main function.
     #define global configuration
     # Default number of led lights on strip
     led_strip_len = 60
