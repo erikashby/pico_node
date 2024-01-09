@@ -24,3 +24,12 @@ try:
     node.connect()
 except KeyboardInterrupt:
     machine.reset()
+    
+    
+#Initilize actions
+ledstrip_fire = __import__('/actions/ledstrip_fire.py', globals(), locals(), ['main','initilize'], 0)
+ledstrip_fire.initilize()
+
+#perform the main loop
+while True:
+    ledstrip_fire.main()

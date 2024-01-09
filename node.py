@@ -18,6 +18,7 @@ def connect():
         sleep(1)
         
     print(wlan.ifconfig())
+    return(wlan.ifconfig()[0])
     
 try:
     connect()
