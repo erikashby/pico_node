@@ -32,4 +32,7 @@ ledstrip_fire.initilize()
 
 #perform the main loop
 while True:
-    ledstrip_fire.main()
+    if supported_actions[0][1]:
+        ledstrip_fire.main()
+    
+    #check socket for incomming command
