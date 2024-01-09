@@ -65,7 +65,7 @@ def main():  # Main function.
         if rotate_adjustment > led_strip_len:
             rotate_adjustment=0
             
-        time.sleepsleep(sleep_time)
+        time.sleep(sleep_time)
         
         #burst flicker
         if int(random.randint(0,20)) == 1:
