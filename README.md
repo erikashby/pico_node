@@ -4,7 +4,7 @@ We Geek Together Code for the Pico Nodes
 # Folder Structure
 ## / Root /<br>
   - main.py (This will auto-start when the pico is started)  (note: during development, main.py will be renamed to main_draft.py to prevent it from running by default)<br>
-supporting libaries<br>
+### supporting libaries<br>
    - neopixel.py (used for lighting up lights)
    - node.py (connection functions)
 
