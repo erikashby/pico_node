@@ -8,6 +8,7 @@ import network
 import socket
 from time import sleep
 import machine
+import json
 
 #Global variables
 
@@ -16,7 +17,11 @@ import machine
 #
 # Current schema for supported actions.  (name,on/off,repeat)
 # example, ["ledstrip_fire",True,True] = ledstrip_fire action is "on" by default, and repeats with each loop
-supported_actions = [["ledstrip_fire",True,True]]
+# supported_actions = [["ledstrip_fire",True,True]]
+
+get_actions = open("supported_actions.json")
+actions = json.load(get_actions)
+get_actions.close()
 
 
 #Connect to the network
@@ -32,7 +37,9 @@ ledstrip_fire.initilize()
 
 #perform the main loop
 while True:
-    if supported_actions[0][1]:
-        ledstrip_fire.main()
+    # actions[a = action array][2 = if looping]
+    for a in actions:
+        if a[2]:
+            ledstrip_fire.main()
     
     #check socket for incomming command
