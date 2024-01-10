@@ -27,6 +27,7 @@ def open_socket(ip):
     connection.bind(address)
     connection.listen(1)
     print(connection)
+    return(connection)
 
     
 try:
