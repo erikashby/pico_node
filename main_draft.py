@@ -27,6 +27,7 @@ get_actions.close()
 #Connect to the network
 try:
     ip= node.connect()
+    connection = open_socket(ip)
 except KeyboardInterrupt:
     machine.reset()
 
