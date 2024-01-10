@@ -20,6 +20,15 @@ def connect():
     print(wlan.ifconfig())
     return(wlan.ifconfig()[0])
     
+def open_socket(ip):
+    # Open a socket
+    address = (ip, 5005)
+    connection = socket.socket()
+    connection.bind(address)
+    connection.listen(1)
+    print(connection)
+
+    
 try:
     connect()
 except KeyboardInterrupt:
