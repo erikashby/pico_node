@@ -22,7 +22,7 @@ def connect():
     
 def open_socket(ip):
     # Open a socket
-    address = (ip, 5005)
+    address = (ip, 80)
     connection = socket.socket()
     connection.bind(address)
     connection.listen(1)

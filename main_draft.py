@@ -9,6 +9,9 @@ import socket
 from time import sleep
 import machine
 import json
+import sys
+import ledstrip_fire
+
 
 #Global variables
 
@@ -27,38 +30,52 @@ get_actions.close()
 #Connect to the network
 try:
     ip= node.connect()
-    connection = open_socket(ip)
 except KeyboardInterrupt:
     machine.reset()
 
 #Start socket
+addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
+
+s = socket.socket()
+s.bind(addr)
+s.listen(1)
 
     
 #Initilize actions
-ledstrip_fire = __import__('/actions/ledstrip_fire.py', globals(), locals(), ['main','initilize'], 0)
+#ledstrip_fire = __import__('/actions/ledstrip_fire.py', globals(), locals(), ['main','initilize'], 0)
 ledstrip_fire.initilize()
 
 #perform the main loop
 while True:
 
-    client = connection.accept()[0]
-    request = client.recv(1024)
-    request = str(request)
     try:
-        request = request.split()[1]
-    except IndexError:
-        pass
-    if request == '/lighton?':
-        print("Turn On")
-    elif request =='/lightoff?':
-        print("Turn Off")
-    client.send("ok")
-    client.close()
+        cl, addr = s.accept()
+        print('client connected from', addr)
+        request = cl.recv(1024)
+        print(request)
+
+        request = str(request)
+        led_on = request.find('/on')
+        led_off = request.find('/off')
+        print( 'led on = ' + str(led_on))
+        print( 'led off = ' + str(led_off))
+        
+        stateis = "Hello World"
+
+        response = stateis
+
+        cl.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
+        cl.send(response)
+        cl.close()
+
+    except OSError as e:
+        cl.close()
+        print('connection closed')
     
     
-    # actions[a = action array][2 = if looping]
-    for a in actions:
-        if a[2]:
-            ledstrip_fire.main()
-    
+    ## actions[a = action array][2 = if looping]
+    #for a in actions:
+    #    if a[2]:
+    #        ledstrip_fire.main()
+    #
     #check socket for incomming command

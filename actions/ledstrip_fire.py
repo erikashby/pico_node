@@ -89,7 +89,7 @@ def main():  # Main function.
 
 
 #Main program
-initialze()  #Initialize the row
+#initialze()  #Initialize the row
 
-while True:  #Loop the main function
-    main()
+#while True:  #Loop the main function
+    #main()
