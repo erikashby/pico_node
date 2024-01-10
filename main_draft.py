@@ -10,7 +10,7 @@ from time import sleep
 import machine
 import json
 import sys
-import ledstrip_fire
+from actions import ledstrip_fire
 
 
 #Global variables
@@ -43,13 +43,13 @@ s.listen(1)
     
 #Initilize actions
 #ledstrip_fire = __import__('/actions/ledstrip_fire.py', globals(), locals(), ['main','initilize'], 0)
-ledstrip_fire.initilize()
+ledstrip_fire.initialze()
 
 #perform the main loop
 while True:
 
+    cl, addr = s.accept()
     try:
-        cl, addr = s.accept()
         print('client connected from', addr)
         request = cl.recv(1024)
         print(request)
