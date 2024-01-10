@@ -40,6 +40,22 @@ ledstrip_fire.initilize()
 
 #perform the main loop
 while True:
+
+    client = connection.accept()[0]
+    request = client.recv(1024)
+    request = str(request)
+    try:
+        request = request.split()[1]
+    except IndexError:
+        pass
+    if request == '/lighton?':
+        print("Turn On")
+    elif request =='/lightoff?':
+        print("Turn Off")
+    client.send("ok")
+    client.close()
+    
+    
     # actions[a = action array][2 = if looping]
     for a in actions:
         if a[2]:
