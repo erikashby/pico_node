@@ -26,10 +26,12 @@ get_actions.close()
 
 #Connect to the network
 try:
-    node.connect()
+    ip= node.connect()
 except KeyboardInterrupt:
     machine.reset()
-    
+
+#Start socket
+
     
 #Initilize actions
 ledstrip_fire = __import__('/actions/ledstrip_fire.py', globals(), locals(), ['main','initilize'], 0)
