@@ -10,12 +10,7 @@ from utime import sleep
 import machine
 import json
 import sys
-<<<<<<< HEAD
 import ledstrip_fire
-import _thread
-=======
-from actions import ledstrip_fire
->>>>>>> f298d641815aa29f31a3c4cf96ecd2eb267cbf14
 
 
 #Global variables

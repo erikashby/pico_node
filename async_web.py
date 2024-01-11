@@ -10,8 +10,8 @@ import uasyncio as asyncio
 led = Pin(15, Pin.OUT)
 onboard = Pin("LED", Pin.OUT, value=0)
 
-ssid = 'A Network'
-password = 'A Password'
+ssid = 'AshXhome_New'
+password = 'Andrew00'
 
 html = """<!DOCTYPE html>
 <html>
