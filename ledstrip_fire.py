@@ -10,6 +10,8 @@
 # - time for sleep actions
 
 import utime,sys,random
+from time import sleep
+import uasyncio as asyncio
 #sys.path.append('/actions')
 from neopixel import Neopixel
 
@@ -73,18 +75,18 @@ def main():  # Main function.
     if rotate_adjustment > led_strip_len:
         rotate_adjustment=0
             
-    #utime.sleep(sleep_time)
+    sleep(sleep_time)
         
     #burst flicker
     if int(random.randint(0,20)) == 1:
         show_line(bright-brightness_adjustment-25,yellow,red,rotate_adjustment)
-        #utime.sleep(0.02)
+        sleep(0.02)
         show_line(bright-brightness_adjustment,yellow,red,rotate_adjustment)
-        #utime.sleep(.01)
+        sleep(.01)
         show_line(bright-brightness_adjustment-25,yellow,red,rotate_adjustment)
-        #utime.sleep(.01)
+        sleep(.01)
         show_line(bright-brightness_adjustment-70,yellow,red,rotate_adjustment)
-        #utime.sleep(sleep_time)
+        sleep(sleep_time)
 
 
 

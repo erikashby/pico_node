@@ -88,11 +88,11 @@ async def main():
 
     print('Setting up webserver...')
     asyncio.create_task(asyncio.start_server(serve_client, "0.0.0.0", 5005))
+    ledstrip_fire.initialze()
     while True:
-        print("heartbeat")
+        #print("heartbeat")
         await asyncio.sleep(0.25)
-        await asyncio.sleep(5)
-        ledstrip_fire.initialze()
+        ledstrip_fire.main()
         
 try:
     asyncio.run(main())
