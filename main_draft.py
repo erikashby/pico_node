@@ -10,8 +10,12 @@ from utime import sleep
 import machine
 import json
 import sys
+<<<<<<< HEAD
 import ledstrip_fire
 import _thread
+=======
+from actions import ledstrip_fire
+>>>>>>> f298d641815aa29f31a3c4cf96ecd2eb267cbf14
 
 
 #Global variables
@@ -44,6 +48,7 @@ s.listen(1)
     
 #Initilize actions
 #ledstrip_fire = __import__('/actions/ledstrip_fire.py', globals(), locals(), ['main','initilize'], 0)
+<<<<<<< HEAD
 #ledstrip_fire.initialze()
 
 def api_handler():
@@ -52,6 +57,15 @@ def api_handler():
         #ledstrip_fire.main()
         
         cl, addr = s.accept()
+=======
+ledstrip_fire.initialze()
+
+#perform the main loop
+while True:
+
+    cl, addr = s.accept()
+    try:
+>>>>>>> f298d641815aa29f31a3c4cf96ecd2eb267cbf14
         print('client connected from', addr)
         request = cl.recv(1024)
         print(request)
