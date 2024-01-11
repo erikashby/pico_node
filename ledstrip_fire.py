@@ -9,7 +9,7 @@
 # - neopixel.py to be in the root folder since it provides the interface to the RGB strip
 # - time for sleep actions
 
-import time,sys,random
+import utime,sys,random
 #sys.path.append('/actions')
 from neopixel import Neopixel
 
@@ -73,23 +73,23 @@ def main():  # Main function.
     if rotate_adjustment > led_strip_len:
         rotate_adjustment=0
             
-    time.sleep(sleep_time)
+    #utime.sleep(sleep_time)
         
     #burst flicker
     if int(random.randint(0,20)) == 1:
         show_line(bright-brightness_adjustment-25,yellow,red,rotate_adjustment)
-        time.sleep(0.02)
+        #utime.sleep(0.02)
         show_line(bright-brightness_adjustment,yellow,red,rotate_adjustment)
-        time.sleep(.01)
+        #utime.sleep(.01)
         show_line(bright-brightness_adjustment-25,yellow,red,rotate_adjustment)
-        time.sleep(.01)
+        #utime.sleep(.01)
         show_line(bright-brightness_adjustment-70,yellow,red,rotate_adjustment)
-        time.sleep(sleep_time)
+        #utime.sleep(sleep_time)
 
 
 
 #Main program
 #initialze()  #Initialize the row
-
-#while True:  #Loop the main function
-    #main()
+def main_loop():
+    while True:  #Loop the main function
+        main()

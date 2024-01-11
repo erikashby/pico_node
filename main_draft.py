@@ -6,11 +6,12 @@
 import node
 import network
 import socket
-from time import sleep
+from utime import sleep
 import machine
 import json
 import sys
 import ledstrip_fire
+import _thread
 
 
 #Global variables
@@ -43,12 +44,13 @@ s.listen(1)
     
 #Initilize actions
 #ledstrip_fire = __import__('/actions/ledstrip_fire.py', globals(), locals(), ['main','initilize'], 0)
-ledstrip_fire.initilize()
+#ledstrip_fire.initialze()
 
-#perform the main loop
-while True:
-
+def api_handler():
     try:
+        print("updating")
+        #ledstrip_fire.main()
+        
         cl, addr = s.accept()
         print('client connected from', addr)
         request = cl.recv(1024)
@@ -72,10 +74,11 @@ while True:
         cl.close()
         print('connection closed')
     
-    
-    ## actions[a = action array][2 = if looping]
-    #for a in actions:
-    #    if a[2]:
-    #        ledstrip_fire.main()
-    #
-    #check socket for incomming command
+
+#perform the main loop
+#_thread.start_new_thread(ledstrip_fire.main_loop,())
+print("...")
+while True:
+    api_handler()
+    x=0
+
