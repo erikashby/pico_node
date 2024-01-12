@@ -13,3 +13,8 @@ Current Supported Actions <br>
    - ledstrip_fire - Simulates a fire on an LED strip
 
 ## / Root / events << place for handling of events >>
+
+## API
+This node will support the following APIs
+/status <- this will return a status object
+/action <- this will perform specific actions (See action API)
