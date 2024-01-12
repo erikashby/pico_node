@@ -15,6 +15,6 @@ Current Supported Actions <br>
 ## / Root / events << place for handling of events >>
 
 ## API
-This node will support the following APIs
-/status <- this will return a status object
+This node will support the following APIs<br>
+/status <- this will return a status object</br>
 /action <- this will perform specific actions (See action API)
