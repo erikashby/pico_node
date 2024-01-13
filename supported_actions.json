@@ -1,3 +1,20 @@
 {
-    "actions": [["ledstrip_fire", 1, 1]]
+    "actions": [
+        {
+        "name" : "ledstrip_fire_on",
+        "family" : "ledstrip_fire",
+        "action" : "on",
+        "api_path" : "/ledstrip_fire?on",
+        "source" : "ledstrip_fire.py",
+        "module" : "on"
+        },
+        {
+            "name" : "ledstrip_fire_off",
+            "family" : "ledstrip_fire",
+            "action" : "off",
+            "api_path" : "/ledstrip_fire?off",
+            "source" : "ledstrip_fire.py",
+            "module" : "on"
+        }
+    ]
 }

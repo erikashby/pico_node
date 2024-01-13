@@ -30,15 +30,13 @@ count = 0
 get_actions = open("supported_actions.json")
 actions = json.load(get_actions)
 get_actions.close()
-
-
-
-
+print(actions)
 
 #Connect to the network
 ssid = 'AshXhome_New'
 password = 'Andrew00'
 wlan = network.WLAN(network.STA_IF)
+
 
 def connect_to_network():
     wlan.active(True)
@@ -60,15 +58,24 @@ def connect_to_network():
         status = wlan.ifconfig()
         print('ip = ' + status[0])
 
+#Todo - This section needs to be updated to respond to request from server
+#Todo - Rename this function to reflect (node_client)
+#Todo - Determine how to pass information from this function back to main loop
+# by updating the action config json
+
 async def serve_client(reader, writer):
+    global actions
     print("Client connected")
     request_line = await reader.readline()
     print("Request:", request_line)
     # We are not interested in HTTP request headers, skip them
     while await reader.readline() != b"\r\n":
         pass
-
     request = str(request_line)
+    
+    for action in actions[actions]:
+        print(action[name])
+
     led_on = request.find('/on')
     led_off = request.find('/off')
     print( 'led on = ' + str(led_on))
@@ -87,7 +94,7 @@ async def main():
     connect_to_network()
 
     print('Setting up webserver...')
-    asyncio.create_task(asyncio.start_server(serve_client, "0.0.0.0", 5005))
+    asyncio.create_task(asyncio.start_server(serve_client, "0.0.0.0", 5000))
     ledstrip_fire.initialze()
     while True:
         #print("heartbeat")
