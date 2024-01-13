@@ -95,7 +95,6 @@ async def check_action(request):
         found = request.find(action['api_path'])
         print("api found =" + str(found))
         if request.find(action['api_path']) > 0:
-            #comment
             new_task={"name" : action['name'],"source" : action['source'],"module" : action['module']}
             tasks.append(new_task)
             response = "Found Action: " + action['name'] + "Adding task..."
