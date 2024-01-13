@@ -1,18 +1,8 @@
 #main
 #The master controller for all actions on this pico node.
-#
 
 #Base imports
-import node
-import network
-import socket
-import utime
-from utime import sleep
-import time
-import machine
-import json
-import sys
-import ledstrip_fire
+import node, network, time, json, ledstrip_fire
 import uasyncio as asyncio
 
 count = 0
@@ -35,14 +25,19 @@ get_tasks = open("tasks.json")
 tasks = json.load(get_tasks)
 get_tasks.close()
 
+get_config = open("config.json")
+config = json.load(get_config)
+get_config.close()
 
-#Connect to the network
+# Connect to the network
 ssid = 'AshXhome_New'
 password = 'Andrew00'
 wlan = network.WLAN(network.STA_IF)
+myip = "10.0.0.xxx or 192.168.x.xxx"
 
 
 def connect_to_network():
+    global myip
     wlan.active(True)
     wlan.config(pm = 0xa11140)  # Disable power-save mode
     wlan.connect(ssid, password)
@@ -60,6 +55,7 @@ def connect_to_network():
     else:
         print('connected')
         status = wlan.ifconfig()
+        myip = str(status[0])
         print('ip = ' + status[0])
 
 #Todo - This section needs to be updated to respond to request from server
@@ -68,8 +64,6 @@ def connect_to_network():
 # by updating the action config json
 
 async def serve_client(reader, writer):
-    #global actions
-    #global tasks
     print("Client connected")
     request_line = await reader.readline()
     print("Request:", request_line)
@@ -79,7 +73,7 @@ async def serve_client(reader, writer):
     request = str(request_line)
     response = check_action(request)
 
-    writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
+    writer.write(b'HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
     writer.write(response)
 
     await writer.drain()
@@ -87,21 +81,31 @@ async def serve_client(reader, writer):
     print("Client disconnected")
 
 
-async def check_action(request):
+def check_action(request):
     response = "Nothing found"
     # find action in the supported actions json
     for action in actions['actions']:
         print(action['api_path'])
         found = request.find(action['api_path'])
         print("api found =" + str(found))
-        if request.find(action['api_path']) > 0:
+        if found > 0:
             new_task={"name" : action['name'],"source" : action['source'],"module" : action['module']}
             tasks.append(new_task)
-            response = "Found Action: " + action['name'] + "Adding task..."
+            response = "Found Action: " + action['name'] + ". Adding task..."
     
+    # find status
+    found = request.find("status")
+    if found > 0:
+        response = "Status:<br>" + str(get_status())
+        print("\nstatus found =" + str(found) + "\n")
 
     print(tasks)
     return response
+
+def get_status():
+    current_status = {"name":config["name"], "type":config["type"], "version":config["version"], "source ip":myip, "actions":actions["actions"]}
+    return current_status
+
 
 async def main():
     print('Connecting to Network...')
@@ -119,15 +123,3 @@ try:
     asyncio.run(main())
 finally:
     asyncio.new_event_loop()
-
-## Old
-    
-#Initilize actions
-#ledstrip_fire = __import__('/actions/ledstrip_fire.py', globals(), locals(), ['main','initilize'], 0)
-#ledstrip_fire.initialze()
-
-#perform the main loop
-   
-
-#perform the main loop
-#_thread.start_new_thread(ledstrip_fire.main_loop,())
