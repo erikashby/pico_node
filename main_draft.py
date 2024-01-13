@@ -77,7 +77,7 @@ async def serve_client(reader, writer):
     while await reader.readline() != b"\r\n":
         pass
     request = str(request_line)
-    
+    response="Nothing found"
     for action in actions['actions']:
         print(action['api_path'])
         found = request.find(action['api_path'])
@@ -85,9 +85,10 @@ async def serve_client(reader, writer):
         if request.find(action['api_path']) > 0:
             new_task={"name" : action['name'],"source" : action['source'],"module" : action['module']}
             tasks.append(new_task)
-    response = "ok"
+            response = "Found Action: " + action['name'] + "Adding task..."
+    #response = "ok"
     print(tasks)
-    #writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
+    writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
     writer.write(response)
 
     await writer.drain()
