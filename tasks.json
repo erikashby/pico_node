@@ -1,0 +1,7 @@
+[
+    {
+    "name" : "ledstrip_fire_on",
+    "source" : "ledstrip_fire.py",
+    "module" : "on"
+    }
+]

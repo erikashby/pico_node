@@ -30,7 +30,11 @@ count = 0
 get_actions = open("supported_actions.json")
 actions = json.load(get_actions)
 get_actions.close()
-print(actions)
+
+get_tasks = open("tasks.json")
+tasks = json.load(get_tasks)
+get_tasks.close()
+
 
 #Connect to the network
 ssid = 'AshXhome_New'
@@ -65,6 +69,7 @@ def connect_to_network():
 
 async def serve_client(reader, writer):
     global actions
+    global tasks
     print("Client connected")
     request_line = await reader.readline()
     print("Request:", request_line)
@@ -73,15 +78,16 @@ async def serve_client(reader, writer):
         pass
     request = str(request_line)
     
-    for action in actions[actions]:
-        print(action[name])
-
-    led_on = request.find('/on')
-    led_off = request.find('/off')
-    print( 'led on = ' + str(led_on))
-    print( 'led off = ' + str(led_off))
+    for action in actions['actions']:
+        print(action['api_path'])
+        found = request.find(action['api_path'])
+        print("api found =" + str(found))
+        if request.find(action['api_path']) > 0:
+            new_task={"name" : action['name'],"source" : action['source'],"module" : action['module']}
+            tasks.append(new_task)
     response = "ok"
-    writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
+    print(tasks)
+    #writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
     writer.write(response)
 
     await writer.drain()
