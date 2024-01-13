@@ -68,8 +68,8 @@ def connect_to_network():
 # by updating the action config json
 
 async def serve_client(reader, writer):
-    global actions
-    global tasks
+    #global actions
+    #global tasks
     print("Client connected")
     request_line = await reader.readline()
     print("Request:", request_line)
@@ -77,7 +77,19 @@ async def serve_client(reader, writer):
     while await reader.readline() != b"\r\n":
         pass
     request = str(request_line)
-    response="Nothing found"
+    response = check_action(request)
+
+    writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
+    writer.write(response)
+
+    await writer.drain()
+    await writer.wait_closed()
+    print("Client disconnected")
+
+
+async def check_action(request):
+    response = "Nothing found"
+    # find action in the supported actions json
     for action in actions['actions']:
         print(action['api_path'])
         found = request.find(action['api_path'])
@@ -86,15 +98,10 @@ async def serve_client(reader, writer):
             new_task={"name" : action['name'],"source" : action['source'],"module" : action['module']}
             tasks.append(new_task)
             response = "Found Action: " + action['name'] + "Adding task..."
-    #response = "ok"
+    
+
     print(tasks)
-    writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
-    writer.write(response)
-
-    await writer.drain()
-    await writer.wait_closed()
-    print("Client disconnected")
-
+    return response
 
 async def main():
     print('Connecting to Network...')
