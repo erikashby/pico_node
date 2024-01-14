@@ -2,7 +2,7 @@
 #The master controller for all actions on this pico node.
 
 #Base imports
-import node, network, time, json, ledstrip_fire
+import node, network, time, json, ledstrip_fire, machine
 import uasyncio as asyncio
 
 # Debug mode
