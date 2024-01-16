@@ -48,6 +48,7 @@ def connect_to_network():
 
     max_wait = 10
     while max_wait > 0:
+        print(str(wlan.status()))
         if wlan.status() < 0 or wlan.status() >= 3:
             break
         max_wait -= 1
