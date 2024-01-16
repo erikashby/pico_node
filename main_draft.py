@@ -30,13 +30,18 @@ config = json.load(get_config)
 get_config.close()
 
 # Connect to the network
-ssid = 'AshXhome_New'
+# Todo, move network config to config.json
+ssid = 'GeekTogetherStore'
 password = 'Andrew00'
+#ssid = 'AshXhome_New'
+#password = 'Andrew00'
+
 wlan = network.WLAN(network.STA_IF)
 myip = "10.0.0.xxx or 192.168.x.xxx"
 
 def connect_to_network():
     global myip
+    global wlan
     wlan.active(True)
     wlan.config(pm = 0xa11140)  # Disable power-save mode
     wlan.connect(ssid, password)
