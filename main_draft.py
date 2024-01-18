@@ -2,7 +2,7 @@
 #The master controller for all actions on this pico node.
 
 #Base imports
-import node, network, time, json, ledstrip_fire, machine
+import network, time, json, ledstrip_fire, machine
 import uasyncio as asyncio
 
 # Debug mode
@@ -31,29 +31,28 @@ get_config.close()
 
 # Connect to the network
 # Todo, move network config to config.json
-ssid = 'GeekTogetherStore'
-password = 'Andrew00'
-#ssid = 'AshXhome_New'
+#ssid = 'GeekTogetherStore'
 #password = 'Andrew00'
+ssid = 'AshXhome_New'
+password = 'Andrew00'
 
-wlan = network.WLAN(network.STA_IF)
 myip = "10.0.0.xxx or 192.168.x.xxx"
 
 def connect_to_network():
+    print("starting...")
     global myip
-    global wlan
+
+    wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
     wlan.config(pm = 0xa11140)  # Disable power-save mode
     wlan.connect(ssid, password)
 
     max_wait = 10
     while max_wait > 0:
-        print(str(wlan.status()))
         if wlan.status() < 0 or wlan.status() >= 3:
             break
         max_wait -= 1
-        if debug_mode:
-            print('waiting for connection...')
+        print('waiting for connection...')
         time.sleep(1)
 
     if wlan.status() != 3:
@@ -122,7 +121,7 @@ def get_status():
         print(current_status)
     return current_status
 
-async def main():
+def initlize():
     if debug_mode:
         print('Connecting to Network...')
     connect_to_network()
@@ -130,12 +129,18 @@ async def main():
     if debug_mode:
         print('Setting up webserver...')
     asyncio.create_task(asyncio.start_server(node_client, "0.0.0.0", 5000))
-    ledstrip_fire.initialze()
+
+async def main():
     while True:
+        #onboard.on()
+        print("heartbeat")
+        for task in tasks:
+            print(task['source']+" - " + task['module'])
         await asyncio.sleep(0.25)
-        ledstrip_fire.main()
-        
-try:
-    asyncio.run(main())
-finally:
-    asyncio.new_event_loop()
+        #onboard.off()
+        await asyncio.sleep(5)
+    
+
+## Default action
+initlize()
+asyncio.run(main())
