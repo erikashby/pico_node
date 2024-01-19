@@ -2,7 +2,7 @@
 #The master controller for all actions on this pico node.
 
 #Base imports
-import network, time, json, ledstrip_fire, machine
+import sys,network, time, json, ledstrip_fire, machine
 import uasyncio as asyncio
 
 # Debug mode
@@ -31,10 +31,10 @@ get_config.close()
 
 # Connect to the network
 # Todo, move network config to config.json
-#ssid = 'GeekTogetherStore'
-#password = 'Andrew00'
-ssid = 'AshXhome_New'
+ssid = 'GeekTogetherStore'
 password = 'Andrew00'
+#ssid = 'AshXhome_New'
+#password = 'Andrew00'
 
 myip = "10.0.0.xxx or 192.168.x.xxx"
 
@@ -129,6 +129,9 @@ def initlize():
     if debug_mode:
         print('Setting up webserver...')
     asyncio.create_task(asyncio.start_server(node_client, "0.0.0.0", 5000))
+    
+    #print('Globals:', globals())
+    print(sys.modules)
 
 async def main():
     while True:
@@ -136,6 +139,9 @@ async def main():
         print("heartbeat")
         for task in tasks:
             print(task['source']+" - " + task['module'])
+            globals()["ledstrip_fire.main"]()
+            #ledstrip_fire.main()
+            getattr(__name__, 'ledstrip_fire.main')()
         await asyncio.sleep(0.25)
         #onboard.off()
         await asyncio.sleep(5)
