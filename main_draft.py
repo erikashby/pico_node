@@ -31,10 +31,10 @@ get_config.close()
 
 # Connect to the network
 # Todo, move network config to config.json
-ssid = 'GeekTogetherStore'
-password = 'Andrew00'
-#ssid = 'AshXhome_New'
+#ssid = 'GeekTogetherStore'
 #password = 'Andrew00'
+ssid = 'AshXhome_New'
+password = 'Andrew00'
 
 myip = "10.0.0.xxx or 192.168.x.xxx"
 
@@ -139,9 +139,9 @@ async def main():
         print("heartbeat")
         for task in tasks:
             print(task['source']+" - " + task['module'])
-            globals()["ledstrip_fire.main"]()
-            #ledstrip_fire.main()
-            getattr(__name__, 'ledstrip_fire.main')()
+            #globals()["ledstrip_fire.main"]()
+            ledstrip_fire.main()
+            #getattr(__name__, 'ledstrip_fire.main')()
         await asyncio.sleep(0.25)
         #onboard.off()
         await asyncio.sleep(5)
