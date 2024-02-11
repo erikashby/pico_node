@@ -137,20 +137,21 @@ async def main():
     global tasks
     new_tasks=[]
     while True:
-        #new_tasks=[]
+        new_tasks=[]
         #onboard.on()
         #print("heartbeat")
         for task in tasks:
             #print(task['source']+" - " + task['module'])
             if task['source'] == "ledstrip_fire.py":
                 if task['module'] == "on":
+                    new_tasks=tasks
                     ledstrip_fire.main()
-                    #new_tasks.append(task)
                     #print("Turning on")
                 elif task['module'] == "off":
                     new_tasks=[]
-                    print("turning off")  
-        #tasks=new_tasks    
+                    ledstrip_fire.off()
+                    #print("turning off")  
+        tasks=new_tasks    
         await asyncio.sleep(0.05)
         #onboard.off()
         #await asyncio.sleep(5)

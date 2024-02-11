@@ -18,7 +18,7 @@ from neopixel import Neopixel
 #define global configuration
 # Default number of led lights on strip
 global led_strip_len
-led_strip_len=60
+led_strip_len=120
 
 global middle
 middle = int(led_strip_len/2)
@@ -32,9 +32,10 @@ global pixels
 pixels = Neopixel(led_strip_len, 0, pico_gpio, "GRB")
     
 #Initiage main colors and brighness
-global red, yellow, bright, medium, rotate_adjustment, brightness_adjustment
+global red, yellow, black, bright, medium, rotate_adjustment, brightness_adjustment
 red=[255,0,0]
 yellow=[150,25,0]
+black=[0,0,0]
 bright = 255
 medium = 100
 rotate_adjustment = 0
@@ -59,6 +60,8 @@ def initialze(): #this is the
     print("starting fire")
     show_line(medium,yellow,red,rotate_adjustment)
 
+def off():
+    show_line(0,black,black,0)
 
 def main():  # Main function.
     #Pick a random brightness adjustment and a random time to stay on the current brightness
