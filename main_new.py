@@ -23,6 +23,7 @@ get_actions.close()
 
 get_tasks = open("tasks.json")
 tasks = json.load(get_tasks)
+#tasks=[]
 get_tasks.close()
 
 get_config = open("config.json")
@@ -31,10 +32,10 @@ get_config.close()
 
 # Connect to the network
 # Todo, move network config to config.json
-#ssid = 'GeekTogetherStore'
-#password = 'Andrew00'
-ssid = 'AshXhome_New'
+ssid = 'GeekTogetherStore'
 password = 'Andrew00'
+#ssid = 'AshXhome_New'
+#password = 'Andrew00'
 
 myip = "10.0.0.xxx or 192.168.x.xxx"
 
